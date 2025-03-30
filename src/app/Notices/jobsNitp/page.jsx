@@ -3,17 +3,22 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Noticecard } from "@/components/notice/noticeCard";
 import { LoadingSpinner } from "@/components/loadingSpinner";
+
 const Page = () => {
   const [jobs, setJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("facultystaffjob");
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const jobsUrl = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/notice?type=facultystaffjob`;
+        const jobsUrl = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/notice?type=all`;
         const response = await axios.get(jobsUrl);
-        setJobs(response.data.filter((notice) => notice.isVisible === 1));
+        const visibleJobs = response.data.filter((notice) => notice.isVisible === 1);
+        setJobs(visibleJobs);
+        setFilteredJobs(visibleJobs.filter((job) => job.notice_type === "facultystaffjob")); // Default filter
       } catch (e) {
         console.error("Error fetching Jobs notices:", e);
         setFetchError(true);
@@ -25,33 +30,77 @@ const Page = () => {
     fetchJobs();
   }, []);
 
-  return (
-      <div className="w-full rounded-lg p-6 md:p-10 mx-auto">
-        <h2 className="text-2xl md:text-3xl text-center font-bold text-red-800 pb-6">
-          Jobs Notifications
-        </h2>
+  const handleFilterChange = (filter) => {
+    setActiveFilter(filter);
+    setFilteredJobs(jobs.filter((job) => job.notice_type === filter));
+  };
 
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : fetchError ? (
-          <ErrorMessage message="Sorry, failed to fetch the latest job notices." />
-        ) : jobs.length === 0 ? (
-          <NoDataMessage message="No job notices available at this time." />
-        ) : (
-          <div className="space-y-4 max-h-[70vh] max-w-[80vw] mx-auto overflow-auto ring-2 ring-rose-600 p-7 rounded-l-2xl">
-            {jobs.map((notice) => (
-              <Noticecard
-                key={notice.id}
-                detail={notice.title}
-                time={notice.timestamp}
-                attachments={notice.attachments}
-                imp={notice.important}
-                link={notice.notice_link ? JSON.parse(notice.notice_link).url : ""}
-              />
-            ))}
+  return (
+    <div className="relative flex flex-col h-screen">
+      <div className="flex flex-1 overflow-hidden">
+        <div className="w-1/4 bg-gray-100 border-r overflow-y-auto">
+          <div className="sticky top-0 p-4">
+            <ul className="space-y-2">
+              <li>
+                <button
+                  className={`w-full text-left px-4 py-2 rounded ${
+                    activeFilter === "facultystaffjob" ? "bg-red-800 text-white" : "bg-gray-200 hover:bg-gray-300"
+                  }`}
+                  onClick={() => handleFilterChange("facultystaffjob")}
+                >
+                  Faculty/Staff Jobs
+                </button>
+              </li>
+              <li>
+                <button
+                  className={`w-full text-left px-4 py-2 rounded ${
+                    activeFilter === "tender" ? "bg-red-800 text-white" : "bg-gray-200 hover:bg-gray-300"
+                  }`}
+                  onClick={() => handleFilterChange("tender")}
+                >
+                  Tenders
+                </button>
+              </li>
+              <li>
+                <button
+                  className={`w-full text-left px-4 py-2 rounded ${
+                    activeFilter === "jrfsrf" ? "bg-red-800 text-white" : "bg-gray-200 hover:bg-gray-300"
+                  }`}
+                  onClick={() => handleFilterChange("jrfsrf")}
+                >
+                  JRF/SRF
+                </button>
+              </li>
+            </ul>
           </div>
-        )}
+        </div>
+
+        {/* Main Content */}
+        <div className="w-3/4 p-6 md:p-10 overflow-y-auto">
+
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : fetchError ? (
+            <ErrorMessage message="Sorry, failed to fetch the latest job notices." />
+          ) : filteredJobs.length === 0 ? (
+            <NoDataMessage message="No job notices available for the selected filter." />
+          ) : (
+            <div className="space-y-4 max-w-[80vw] mx-auto overflow-auto ring-2ring-rose-600 p-7 rounded-l-2xl">
+              {filteredJobs.map((notice) => (
+                <Noticecard
+                  key={notice.id}
+                  detail={notice.title}
+                  time={notice.timestamp}
+                  attachments={notice.attachments}
+                  imp={notice.important}
+                  link={notice.notice_link ? JSON.parse(notice.notice_link).url : ""}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { Phone, Mail, User, Eye } from 'lucide-react';
-import HostelDetails from './HostelDetails';
+import HostelDetails from './hosteldetails';
 
 const hostels = [
   {
