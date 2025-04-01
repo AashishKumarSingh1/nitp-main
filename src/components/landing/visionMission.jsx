@@ -5,7 +5,7 @@ import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ArrowRight } from "lucide-react";
-import MagazinePage from "@/app/Institute/Magazine/page";
+// import MagazinePage from "@/app/Institute/Magazine/page";
 const VisionMission = () => {
   const [containerHeight, setContainerHeight] = useState(null);
 
