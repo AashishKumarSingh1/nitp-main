@@ -225,7 +225,7 @@ const Details = () => {
         </div>
       </div>
 
-      <div className="section1">
+      <div className="section">
         <div>
           <div className="section-header">
             <h2>Events</h2>
