@@ -15,11 +15,11 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 
 const menuItems = [
-  { title: "STUDENT", icon: <GraduationCap size={40} color="#BA210E" />, link: "/Student" },
+  { title: "STUDENT", icon: <GraduationCap size={40} color="#BA210E" />, link: "/students" },
   { title: "ALUMNI", icon: <GraduationCap size={40} color="#BA210E" />, link: "https://alumini-nitp.vercel.app/", external: true },
   { title: "ADMISSIONS", icon: <School size={40} color="#BA210E" />, link: "/Academic/Admission?tab=JoSAA" },
   { title: "MAGAZINE", icon: <Book size={40} color="#BA210E" />, link: "/Institute/Magazine" },
-  { title: "RECRUITMENT", icon: <Users size={40} color="#BA210E" />, link: "/Notices/JobsNITP" },
+  { title: "RECRUITMENT", icon: <Users size={40} color="#BA210E" />, link: "/Notices/jobsNitp" },
   { title: "International Affairs", icon: <Plane size={40} color="#BA210E" />, link: "/Institute/International" },
   { title: "Electronics & ICT Academy", icon: <Building size={40} color="#BA210E" />, link: "https://nitp-ict.ct.ws", external: true },
   { title: "Development Fund", icon: <Handshake size={40} color="#BA210E" />, link: "/DevelopmentFund" },
