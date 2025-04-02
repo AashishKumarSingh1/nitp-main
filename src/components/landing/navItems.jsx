@@ -284,6 +284,39 @@ export const navItems = [
     ],
   },
   {
+    name: "Admission",
+    url: "#", // Ensure the main menu has a URL
+    mlabel: "Adimission",
+    icon: <Users size={18} />,
+    dropdown: [
+      {
+        name: "Fees Structure",
+        url: "Admimission/FeesStructure",
+        icon: <Users size={18} />,
+      },
+      {
+        name: "Btech Admissions",
+        url: "/Adimission/BtechAdmissions",
+        icon: <User size={18} />,
+      },
+      {
+        name: "Msc Admissions",
+        url: "/Adimission/MscAdmissions",
+        icon: <Users size={18} />,
+      },
+      {
+        name: "Mtech Admissions",
+        url: "/Adimission/MtechAdmissions",
+        icon: <Users size={18} />,
+      },
+      {
+        name: "Phd Admissions",
+        url: "/Adimission/PhdAdmissions",
+        icon: <Users size={18} />,
+      }
+    ]
+  },
+  {
     name: "Administration",
     url: "#", // Ensure the main menu has a URL
     mlabel: "Administration",

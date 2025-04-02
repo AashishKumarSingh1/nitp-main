@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { LoadingSpinner } from "@/components/loadingSpinner";
+import Loading from "../../Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPhone, faEye } from "@fortawesome/free-solid-svg-icons";
 
@@ -106,7 +106,7 @@ const AllFaculty = () => {
   }, []);
 
   if (loading) {
-    return <LoadingSpinner />;
+    return <Loading />;
   }
 
   const renderFacultiesByDesignation = (designations, title) => {
@@ -118,29 +118,27 @@ const AllFaculty = () => {
 
     return (
       <div key={title} className="mb-8">
-  <h2 className="text-2xl font-bold text-black">{title}</h2>
-  <div className="flex flex-wrap justify-center gap-4 p-4 mt-2">
-    {filteredFaculties
-      .filter((faculty) => faculty.image) 
-      .map((faculty) => (
-        <FacultyCard
-          key={faculty.id}
-          name={faculty.name}
-          image={faculty.image}
-          department={faculty.department}
-          designation={faculty.designation}
-          email={faculty.email}
-          phone={faculty.ext_no}
-          profileLink={`/profile/${faculty.email}`}
-        />
-      ))}
-  </div>
-</div>
+        <h2 className="text-2xl font-bold text-black">{title}</h2>
+        <div className="flex flex-wrap justify-center gap-4 p-4 mt-2">
+          {filteredFaculties.map((faculty) => (
+            <FacultyCard
+              key={faculty.id}
+              name={faculty.name}
+              image={faculty.image}
+              department= {faculty.department}
+              designation={faculty.designation}
+              email={faculty.email}
+              phone={faculty.ext_no}
+              profileLink={`/profile/${faculty.email}`}
+            />
+          ))}
+        </div>
+      </div>
     );
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="mx-auto px-4 py-8">
       {renderFacultiesByDesignation(
         [
           "Professor & HOD",
