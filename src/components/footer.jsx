@@ -1,36 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { 
-  CalendarDays,
-  MapPin,
-  Download,
-  ExternalLink,
-  Cloud,
-  HeartPulse,
-  Twitter,
-  Linkedin,
-  Facebook,
-  Globe,
-  Mail,
-  Phone,
-  Clock,
-  BookOpen,
-  School,
-  FileText,
-  Home,
-  Users,
-  Library,
-  AlertCircle,
-  CalendarCheck,
-  FileSearch,
-  Thermometer,
-  Droplets,
-  Wind,
-  Gauge,
-  Eye,
-  Compass
-} from 'lucide-react';
+import { Calendar, MapPin, Download, ExternalLink, CloudIcon, HeartIcon, TwitterIcon, LinkedinIcon, FacebookIcon, GlobeIcon, MailIcon, PhoneIcon } from 'lucide-react';
 
 const Footer = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -67,7 +38,6 @@ const Footer = () => {
     const interval = setInterval(() => {
       fetchWeatherData();
       fetchPollutionData();
-      setCurrentDateTime(new Date());
     }, 120000);
     return () => clearInterval(interval);
   }, []);
@@ -83,198 +53,139 @@ const Footer = () => {
       year: "numeric",
     });
   };
-
   return (
-    <footer className="bg-gradient-to-b from-[#1a0404] to-[#0d0202] text-white pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+    <footer className="bg-gradient-to-b from-[#300a0a] to-[#1a0404] text-white py-12">
+      <div className="mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Institute Info */}
-          <div className="lg:col-span-2">
-            <div className="flex flex-col space-y-6">
-              <div className="flex items-center justify-center md:justify-start">
-                <img
-                  src="https://i.postimg.cc/k5CYZwwS/logo.png"
-                  alt="NIT Patna Logo"
-                  className="w-20 h-20"
-                />
-              </div>
-              <p className="text-center md:text-left text-gray-300 text-lg leading-relaxed">
-                National Institute of Technology Patna is one of India's premier technical institutions.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-colors">
-                  <MapPin className="h-5 w-5 text-red-400 flex-shrink-0" />
-                  <span>Ashok Rajpath, Patna, Bihar 800005</span>
+          <div className="lg:col-span-1 flex justify-center lg:justify-start">
+            <div className="flex flex-col items-center text-center md:items-center lg:items-center">
+              <img
+                src="https://i.postimg.cc/k5CYZwwS/logo.png"
+                alt="NIT Patna Logo"
+                className="w-24 h-24 mb-4"
+              />
+              <div className="space-y-2">
+                <p className="font-medium text-center">National Institute of Technology Patna</p>
+                <p className="text-sm text-gray-300 text-center">Ashok Rajpath, Mahendru, Patna, Bihar 800005</p>
+                <div className="space-y-1 mt-4 pl-[75px]">
+                  <p className="flex items-center gap-2 text-sm">
+                    <PhoneIcon className="w-4 h-4" /> 0612-2371715
+                  </p>
+                  <p className="flex items-center gap-2 text-sm">
+                    <MailIcon className="w-4 h-4" /> info@nitp.ac.in
+                  </p>
+                  <p className="flex items-center gap-2 text-sm">
+                    <GlobeIcon className="w-4 h-4" /> www.nitp.ac.in
+                  </p>
                 </div>
-                <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-colors">
-                  <Phone className="h-5 w-5 text-red-400 flex-shrink-0" />
-                  <span>+91 612 237 1715</span>
+                <div className="flex justify-center space-x-4 mt-4">
+                  <a href="https://twitter.com/NITPatna1" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
+                    <TwitterIcon className="w-5 h-5" />
+                  </a>
+                  <a href="https://www.linkedin.com/company/nit-patna" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
+                    <LinkedinIcon className="w-5 h-5" />
+                  </a>
+                  <a href="https://www.facebook.com/NITPatna" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
+                    <FacebookIcon className="w-5 h-5" />
+                  </a>
+                  <a href="https://goo.gl/maps/srZ6whpfDGqg85sp6" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">
+                    <MapPin className="w-5 h-5" />
+                  </a>
                 </div>
-                <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-colors">
-                  <Mail className="h-5 w-5 text-red-400 flex-shrink-0" />
-                  <span>info@nitp.ac.in</span>
-                </div>
-                <div className="flex items-center justify-center md:justify-start space-x-3 text-gray-300 hover:text-white transition-colors">
-                  <Globe className="h-5 w-5 text-red-400 flex-shrink-0" />
-                  <span>www.nitp.ac.in</span>
-                </div>
-              </div>
-              <div className="flex justify-center md:justify-start space-x-5 pt-2">
-                <a href="https://twitter.com/NITPatna1" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-400 transition-colors">
-                  <Twitter className="h-6 w-6" />
-                </a>
-                <a href="https://www.linkedin.com/company/nit-patna" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-400 transition-colors">
-                  <Linkedin className="h-6 w-6" />
-                </a>
-                <a href="https://www.facebook.com/NITPatna" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-400 transition-colors">
-                  <Facebook className="h-6 w-6" />
-                </a>
-                <a href="https://goo.gl/maps/srZ6whpfDGqg85sp6" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-400 transition-colors">
-                  <MapPin className="h-6 w-6" />
-                </a>
               </div>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-xl font-semibold mb-6 pb-2 border-b border-red-800 flex items-center">
-              <BookOpen className="h-5 w-5 mr-2 text-red-400" />
-              Quick Links
-            </h3>
-            <ul className="space-y-4">
-              {[
-                { name: 'Departments', url: '/Department', icon: <School className="h-5 w-5 text-red-400" /> },
-                { name: 'NIRF', url: '/Others/NIRF', icon: <FileSearch className="h-5 w-5 text-red-400" /> },
-                { name: 'RTI', url: '/Others/RTI', icon: <AlertCircle className="h-5 w-5 text-red-400" /> },
-                { name: 'Magazine', url: '/Institute/Magazine', icon: <Library className="h-5 w-5 text-red-400" /> },
-              ].map((link, index) => (
-                <li key={index}>
-                  <Link href={link.url} className="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors group">
-                    {link.icon}
-                    <span className="group-hover:underline">{link.name}</span>
-                  </Link>
-                </li>
-              ))}
+          <div className="lg:col-span-1">
+            <h3 className="text-lg font-semibold mb-4 border-b border-[#a51818] pb-2">Quick Links</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/Department" className="hover:text-gray-300">Departments</Link></li>
+              <li><Link href="/Others/NIRF" className="hover:text-gray-300">NIRF</Link></li>
+              <li><Link href="/Others/NewCampus" className="hover:text-gray-300">New Campus</Link></li>
+              <li><Link href="/Others/RTI" className="hover:text-gray-300">RTI</Link></li>
+              <li><Link href="/Institute/Magazine" className="hover:text-gray-300">Magazine(Vol.4)</Link></li>
             </ul>
           </div>
 
           {/* Explore */}
-          <div>
-            <h3 className="text-xl font-semibold mb-6 pb-2 border-b border-red-800 flex items-center">
-              <Compass className="h-5 w-5 mr-2 text-red-400" />
-              Explore
-            </h3>
-            <ul className="space-y-4">
-              {[
-                { name: 'Campus', url: '/Institute?tab=campus', icon: <MapPin className="h-5 w-5 text-red-400" /> },
-                { name: 'BOG/FC/BWC Minutes', url: '/Others/BOG', icon: <FileText className="h-5 w-5 text-red-400" /> },
-                { name: 'Senate Minutes', url: '/Others/Senate', icon: <Users className="h-5 w-5 text-red-400" /> },
-                { name: 'SC/ST Grievance Cell', url: '/Facilities/SCST', icon: <AlertCircle className="h-5 w-5 text-red-400" /> },
-              ].map((link, index) => (
-                <li key={index}>
-                  <Link href={link.url} className="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors group">
-                    {link.icon}
-                    <span className="group-hover:underline">{link.name}</span>
-                  </Link>
-                </li>
-              ))}
+          <div className="lg:col-span-1">
+            <h3 className="text-lg font-semibold mb-4 border-b border-[#a51818] pb-2">Explore</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="/Institute?tab=campus" className="hover:text-gray-300">Campus</Link></li>
+              <li><Link href="/Others/BOG" className="hover:text-gray-300">BOG/FC/BWC Minutes</Link></li>
+              <li><Link href="/Others/Convocation/" className="hover:text-gray-300">Convocation 2023</Link></li>
+              <li><Link href="/Others/Senate" className="hover:text-gray-300">Senate Minutes</Link></li>
+              <li><Link href="/Facilities/SCST" className="hover:text-gray-300">SC/ST Grievance Cell</Link></li>
+              <li><Link href="#" className="hover:text-gray-300">Climate Action Plan</Link></li>
             </ul>
           </div>
 
-          {/* Weather & Info */}
-          <div>
-            <h3 className="text-xl font-semibold mb-6 pb-2 border-b border-red-800 flex items-center">
-              <Cloud className="h-5 w-5 mr-2 text-red-400" />
-              Patna Weather
+          {/* Useful Links */}
+          <div className="lg:col-span-1">
+            <h3 className="text-lg font-semibold mb-4 border-b border-[#a51818] pb-2">Useful Links</h3>
+            <ul className="space-y-2 text-sm">
+              <li><a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">How to Reach</a></li>
+              <li><Link href="/Others/Report" className="hover:text-gray-300">Annual Reports</Link></li>
+              <li><Link href="/Student/NSS" className="hover:text-gray-300">National Service Scheme</Link></li>
+              <li><Link href="/Others/Tenders" className="hover:text-gray-300">Tenders</Link></li>
+              <li><a href="https://drive.google.com/file/d/1tVgQSygS8GRTZIglbVWVClasegdd6BCi/view" target="_blank" rel="noopener noreferrer" className="hover:text-gray-300">Academic Calendar</a></li>
+              <li><Link href="/Others/Terms" className="hover:text-gray-300">Terms of Use</Link></li>
+            </ul>
+          </div>
+
+          {/* Weather Info */}
+          <div className="lg:col-span-1">
+            <h3 className="text-lg font-semibold mb-4 border-b border-[#a51818] pb-2">
+              <MapPin className="inline-block w-5 h-5 mr-2" />Patna
             </h3>
-            <div className="bg-gradient-to-br from-[#2a0a0a] to-[#1a0404] p-5 rounded-xl border border-red-900/50 shadow-lg">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <p className="text-sm text-gray-300 mb-3">{formatDate(currentDateTime)}</p>
-                  {weatherData?.list?.[0] && (
-                    <div className="space-y-3">
-                      <p className="flex items-center space-x-3 text-base">
-                        <Thermometer className="h-5 w-5 text-red-400" />
-                        <span>{(weatherData.list[0].main.temp - 273.15).toFixed(1)}°C</span>
-                      </p>
-                      <p className="flex items-center space-x-3 text-base">
-                        <Droplets className="h-5 w-5 text-blue-400" />
-                        <span>{weatherData.list[0].main.humidity}% humidity</span>
-                      </p>
-                      <p className="flex items-center space-x-3 text-base">
-                        <Wind className="h-5 w-5 text-gray-400" />
-                        <span>{weatherData.list[0].wind.speed} km/h wind</span>
-                      </p>
-                    </div>
-                  )}
-                </div>
-                {weatherData?.list?.[0]?.weather?.[0] && (
-                  <div className="text-center">
-                    <div className="text-4xl mb-1">
-                      {weatherData.list[0].weather[0].main === 'Clouds' && '☁️'}
-                      {weatherData.list[0].weather[0].main === 'Rain' && '🌧️'}
-                      {weatherData.list[0].weather[0].main === 'Clear' && '☀️'}
-                      {weatherData.list[0].weather[0].main === 'Thunderstorm' && '⛈️'}
-                    </div>
-                    <p className="text-sm capitalize">
-                      {weatherData.list[0].weather[0].description}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {pollutionData?.list?.[0] && (
-                <div className="mt-5 p-4 bg-[#2a0a0a] rounded-lg border border-red-900/30">
-                  <p className="flex items-center space-x-3 text-base">
-                    <Gauge className="h-5 w-5 text-green-400" />
-                    <span>Air Quality: {pollutionData.list[0].components.pm2_5} µg/m³</span>
-                  </p>
-                  <p className="text-xs text-gray-400 mt-2 flex items-center">
-                    <HeartPulse className="h-4 w-4 mr-2" />
-                    Source: OpenWeather
-                  </p>
-                </div>
-              )}
-
-              <div className="mt-6">
-                <p className="text-sm flex items-center space-x-2 mb-3">
-                  <Eye className="h-5 w-5 text-red-400" />
-                  <span>Visitors:</span>
+            {weatherData && weatherData.list && weatherData.list.length > 0 ? (
+              <div className="space-y-2 text-sm">
+                <p>{formatDate(currentDateTime)}</p>
+                <p className="flex items-center gap-2">
+                  <CloudIcon className="w-4 h-4" />
+                  {weatherData.list[0].weather[0].description}
                 </p>
-                <div className="flex space-x-2">
-                  {[1, 4, 0, 0, 7, 1].map((num, idx) => (
-                    <div 
-                      key={idx} 
-                      className="w-10 h-10 flex items-center justify-center bg-[#1a0404] border border-red-900/50 rounded-lg text-lg font-mono font-bold"
-                    >
-                      {num}
-                    </div>
-                  ))}
-                </div>
+                <p>Temp: {(weatherData.list[0].main.temp - 273.15).toFixed(2)}°C</p>
+                <p>Humidity: {weatherData.list[0].main.humidity}%</p>
+                <p>Wind: {weatherData.list[0].wind.speed} km/h</p>
+              </div>
+            ) : (
+              <p className="text-sm">Loading weather data...</p>
+            )}
+
+            {pollutionData && pollutionData.list && pollutionData.list.length > 0 && (
+              <div className="mt-4 p-3 bg-[#4d1616] rounded-lg">
+                <p className="text-sm flex items-center gap-2">
+                  Air Quality (PM2.5): 
+                  <span className="text-green-400">{pollutionData.list[0].components.pm2_5}</span>
+                  <HeartIcon className="w-4 h-4 text-green-400" />
+                </p>
+                <p className="text-xs text-gray-400 mt-1">Source: OpenWeather</p>
+              </div>
+            )}
+
+            <div className="mt-4">
+              <h4 className="font-medium mb-2">Visitors:</h4>
+              <div className="flex gap-2">
+                {[1, 4, 0, 0, 7, 1].map((num, idx) => (
+                  <div key={idx} className="w-8 h-8 flex items-center justify-center border border-[#a51818] rounded">
+                    {num}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-16 pt-8 border-t border-red-900/30">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-gray-400 text-center md:text-left">
-              © {new Date().getFullYear()} National Institute of Technology Patna. All Rights Reserved.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6">
-              <Link href="/Webteam" className="text-sm text-gray-400 hover:text-red-400 transition-colors flex items-center">
-                <span>Developed by WDC NIT Patna</span>
-                <ExternalLink className="h-4 w-4 ml-1" />
-              </Link>
-              <Link href="/privacy-policy" className="text-sm text-gray-400 hover:text-red-400 transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-sm text-gray-400 hover:text-red-400 transition-colors">
-                Terms of Use
-              </Link>
-            </div>
+        <div className="mt-12 pt-4 border-t border-[#a51818]">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-gray-300">Copyright © 2024 National Institute of Technology Patna. All Rights Reserved.</p>
+            <Link href="/Webteam" className="text-sm text-gray-300 hover:text-white underline">
+              Developed & Maintained by WDC NIT Patna
+            </Link>
           </div>
         </div>
       </div>
