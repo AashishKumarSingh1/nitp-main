@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserGraduate, faSchool, faBookOpen, faBullseye, faLightbulb } from '@fortawesome/free-solid-svg-icons';
-
-export default function InstitutePage() {
+import { Suspense } from 'react'
+function InstituteComponent() {
   const searchParams = useSearchParams();
   const initialTab = searchParams.get('tab') || 'about';
   const [activeSection, setActiveSection] = useState(initialTab);
@@ -156,5 +156,13 @@ export default function InstitutePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <InstituteComponent />
+    </Suspense>
   );
 }
