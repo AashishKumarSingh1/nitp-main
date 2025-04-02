@@ -9,7 +9,8 @@ const NewDropdown = ({ title, items, icon, isSubmenu = false }) => {
     <div className="relatuve group">
       {!isSubmenu && (
         <button className="flex items-center gap-2 px-4 py-2 hover:bg-red-800 transition-all duration-200 rounded-md ">
-          {icon} <span>{title}</span>
+          {/* {icon} */}
+           <span>{title}</span>
           {items.length > 0 && <ChevronRight size={16} className="ml-auto" />}
         </button>
       )}
