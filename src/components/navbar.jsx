@@ -13,7 +13,7 @@ import NewDropdown from "./landing/newDropdown";
 
 export const Topbar = () => {
   const rightSide = [
-    { href: "/notices/jobsNitp", text: "Jobs@NITP" },
+    { href: "/Notices/jobsNitp", text: "Jobs@NITP" },
     {
       href: "https://paydirect.eduqfix.com/app/mnYv9Q6+C+3lIMqghRCwdaqVZusPrJtq2RGJrJFnKnmtz3KBqtsEFPVrZFvoPubG/3466",
       text: "Fee Payment",

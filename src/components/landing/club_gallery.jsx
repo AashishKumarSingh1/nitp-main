@@ -90,11 +90,24 @@ export const ClubGallery = () => {
             <ImageIcon className="w-6 h-6 md:w-8 md:h-8 text-blue-600" />
             NIT Patna Glimpses
           </h1>
-          <div className="">
-           <SocialHandles />
+          <div className="flex flex-wrap gap-1 w-full h-[60vh]">
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className="flex-1 basis-1/4 transition-all duration-300 hover:basis-1/3 h-[20vh]"
+                style={{ flexShrink: 1 }}
+              >
+                <Image
+                  src={image}
+                  alt={`NIT Patna Glimpse ${index + 1}`}
+                  width={300}
+                  height={200}
+                  className="object-cover rounded-lg w-full h-full"
+                />
+              </div>
+            ))}
           </div>
         </div>
-
       </div>
     </div>
   );

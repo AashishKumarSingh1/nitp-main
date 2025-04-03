@@ -2,8 +2,8 @@ import React from 'react'
 
 function ResearchName() {
   return (
-    <div className='w-full px-4 py-8 md:px-6 md:py-4 bg-transparent'>
-       <div className="flex text-center items-center justify-center py-6">
+    <div className='w-full px-4 md:px-6  bg-transparent'>
+       <div className="flex text-center items-center justify-center">
           <div className="w-full h-0.5 mr-4 bg-[#a51818] " />
           <svg
             className="text-primary mr-5"

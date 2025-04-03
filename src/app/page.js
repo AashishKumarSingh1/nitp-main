@@ -13,18 +13,24 @@ import Footer from "@/components/footer";
 import { Topbar } from "@/components/navbar";
 import { Middle } from "@/components/navbar";
 import { BottomNav } from "@/components/navbar";
-// import NewFooter from "@/components/landing/newFooter";
+import AcademicPrograms from "@/components/landing/Academicprograms";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       <section>
         <Slider />
       </section>
-      <section className="">
-        <VisionMission />
-      </section>
+      <section className="py-5">
+        <Popbuttons />
+      </section>    
       <section className="">
         <Details />
+      </section>
+      <section className="">
+        <NumbersNitp/>
+      </section>
+      <section className="">
+        <VisionMission />
       </section>
         <section
       id="institute-numbers"
@@ -34,18 +40,13 @@ export default function Home() {
           <DirectorCard />
         </div>
       </section>
-      <section className="py-6">
-        <Popbuttons />
-      </section>
-      <section className="py-6">
-        <NumbersNitp/>
-      </section>
-      
-      <section className="py-6">
+      <section className="">
         <Research />
       </section>
-     
-      <section className="py-6">
+      <section className="">
+        <AcademicPrograms />
+      </section>
+      <section className="">
         <ClubGallery />
       </section>
     </div>

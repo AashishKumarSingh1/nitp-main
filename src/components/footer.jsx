@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// import "./styles/Footer.css";
 import { Calendar, MapPin, Download, ExternalLink, CloudIcon, HeartIcon, TwitterIcon, LinkedinIcon, FacebookIcon, GlobeIcon, MailIcon, PhoneIcon } from 'lucide-react';
 
 const Footer = () => {
@@ -34,21 +33,15 @@ const Footer = () => {
   };
 
   useEffect(() => {
-    // Fetch data initially
     fetchWeatherData();
     fetchPollutionData();
-
-    // Fetch data every two minutes
     const interval = setInterval(() => {
       fetchWeatherData();
       fetchPollutionData();
     }, 120000);
-
-    // Clean up interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
-  // Helper function to format date and time
   const formatDate = (date) => {
     return date.toLocaleString("en-US", {
       weekday: "long",
@@ -61,7 +54,7 @@ const Footer = () => {
     });
   };
   return (
-    <footer className="bg-[#421010] text-white py-12">
+    <footer className="bg-gradient-to-b from-[#300a0a] to-[#1a0404] text-white py-12">
       <div className="mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Institute Info */}
