@@ -5,76 +5,37 @@ import AcadProgram from "@/components/department/AcadProgram";
 import AboutDept from "@/components/department/AboutDept";
 import DeptPic from "@/components/department/DeptPic";
 import DeptNotice from "@/components/department/DeptNotice";
+import {
+  Users,
+  BookOpen,
+  FileText,
+  Award,
+  Briefcase,
+  BarChart2,
+} from "lucide-react";
 
-const about = `
-The Department of Architecture was established in the Bihar College of Engineering (BCE) Patna in the year 1979 under Patna University. It was the first time that architectural education had commenced in Bihar. When BCE Patna was rechristened as National Institute of Technology Patna on 28th January 2004, it came under the control of Ministry of Human Resource Development (MHRD), Government of India. The Department of Architecture and Planning offers programmes in Bachelor of Architecture (B.Arch.), Master of Urban and Regional Planning (MURP), Master of Architecture (Sustainable Architecture) and Ph.D. in Architecture and Planning.
-`;
+const about = `The Department of Architecture was established in the Bihar College of Engineering (BCE) Patna in the year 1979 under Patna University. It was the ¬ first time that architectural education had commenced in Bihar. When BCE Patna was rechristened as National Institute of Technology Patna on 28th January 2004, it came under the control of Ministry of Human Resource Development (MHRD), Government of India. The Department of Architecture and Planning offers programmes in Bachelor of Architecture (B.Arch.), Master of Urban and Regional Planning (MURP), Master of Architecture (Sustainable Architecture) and Ph.D. in Architecture and Planning.`;
 
 const pictures = ["", "", ""];
 
 const counts = [
-  {
-    name: "Undergraduate Students",
-    icon: "/students_icon.png",
-    count: 456,
-    color: "#FFCDD2", // Soft Red
-  },
-  {
-    name: "Postgraduate Students",
-    icon: "/students_icon.png",
-    count: 123,
-    color: "#BBDEFB", // Soft Blue
-  },
-  {
-    name: "Ph.D. Students",
-    icon: "/students_icon.png",
-    count: 49,
-    color: "#D1C4E9", // Soft Purple
-  },
-  {
-    name: "Faculty",
-    icon: "/faculty_icon.png",
-    count: 25,
-    color: "#FFECB3", // Soft Yellow
-  },
-  {
-    name: "Journal",
-    icon: "/journal_icon.png",
-    count: 25,
-    color: "#C8E6C9", // Soft Green
-  },
-  {
-    name: "Conferences",
-    icon: "/conference_icon.png",
-    count: 78,
-    color: "#FFCCBC", // Soft Orange
-  },
-  {
-    name: "Projects",
-    icon: "/projects_icon.png",
-    count: 49,
-    color: "#D7CCC8", // Soft Brown
-  },
-  {
-    name: "Research",
-    icon: "/research_icon.png",
-    count: 123,
-    color: "#B2DFDB", // Soft Teal
-  },
-  {
-    name: "Patents",
-    icon: "/patents_icon.png",
-    count: 123,
-    color: "#F8BBD0", // Soft Pink
-  },
+  { name: "Undergraduate Students", icon: <Users size={40} />, count: "456+" },
+  { name: "Postgraduate Students", icon: <Users size={40} />, count: "123+" },
+  { name: "Ph.D. Students", icon: <Users size={40} />, count: "49+" },
+  { name: "Faculty", icon: <BookOpen size={40} />, count: "25+" },
+  { name: "Journal", icon: <FileText size={40} />, count: "25+" },
+  { name: "Conferences", icon: <Award size={40} />, count: "78+" },
+  { name: "Projects", icon: <Briefcase size={40} />, count: "49+" },
+  { name: "Book", icon: <BookOpen size={40} />, count: "123+" },
+  { name: "Patents", icon: <BarChart2 size={40} />, count: "123+" },
 ];
 
 const AcadProgrammes = [
   {
     name: "Under Graduate",
-    degree: "B.Tech",
+    degree: "B.Arch",
     duration: `4`,
-    specialization: ["Arch"],
+    specialization: ["Architecture"],
     timeTableLink: "",
     syllabusLink: "",
   },
@@ -82,7 +43,7 @@ const AcadProgrammes = [
     name: "Dual Degree",
     degree: "Integrated B.Tech and M.Tech",
     duration: `5`,
-    specialization: ["Arch"],
+    specialization: ["Cyber Security", "Data Science"],
     timeTableLink: "",
     syllabusLink: "",
   },
@@ -90,7 +51,7 @@ const AcadProgrammes = [
     name: "Post Graduate",
     degree: "M.Tech",
     duration: `2`,
-    specialization: ["Arch"],
+    specialization: ["CSE"],
     timeTableLink: "",
     syllabusLink: "",
   },
@@ -98,24 +59,24 @@ const AcadProgrammes = [
     name: "Ph.D.",
     degree: "Post Doctrate",
     duration: `5+`,
-    specialization: ["Arch"],
+    specialization: ["CSE"],
     timeTableLink: "",
     syllabusLink: "",
   },
 ];
 
-const ArchiPage = () => {
+const CSEPage = () => {
   return (
     <div className="">
       {/* Department Picture and Notice */}
-      <div className="flex flex-row w-[80%] h-[420px] mx-auto flex-1 shrink-0 mt-5">
+      <div className="flex flex-row w-[90%] h-[420px] mx-auto flex-1 shrink-0 mt-5">
         <DeptPic pictures={pictures} />
-        <DeptNotice dept="Archi" />
+        <DeptNotice dept="Arch" />
       </div>
 
       {/* About the department */}
       <div className="py-1 mt-2">
-        <div className="flex flex-col lg:flex-row w-full px-5 xs:px-0 md:w-[90%] lg:w-[80%] mx-auto">
+        <div className="flex flex-col lg:flex-row w-full px-5 xs:px-0 md:w-[90%] lg:w-full mx-auto">
           <AboutDept about={about} />
 
           <DepartmentCounter counts={counts} />
@@ -138,4 +99,4 @@ const ArchiPage = () => {
   );
 };
 
-export default ArchiPage;
+export default CSEPage;

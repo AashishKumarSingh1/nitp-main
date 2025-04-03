@@ -2,9 +2,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PhdCandidate from "../../../../components/facultycomponents/PhdCandidate";
-import staffData from "../staffCse";
 
-const CSEReserchStudentspage = () => {
+const ArchReserchStudentspage = () => {
   const [faculty, setFaculty] = useState(true);
   const [phd, setPhd] = useState("phd");
   const [loading, setLoading] = useState(true);
@@ -15,7 +14,7 @@ const CSEReserchStudentspage = () => {
   const fetchPhd = async () => {
     try {
       setLoading(true);
-      const api = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/faculty?type=cse`;
+      const api = `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/faculty?type=arch`;
       const { data } = await axios.get(api);
 
       const phdCandidates = await Promise.all(
@@ -81,8 +80,6 @@ const CSEReserchStudentspage = () => {
   );
 
   const hasFaculty = true;
-  const hasStaff =
-    staffData.find((dept) => dept.department === "CSE")?.staff.length > 0;
   const hasPhd = phdInfo.length > 0;
 
   return (
@@ -157,4 +154,4 @@ const CSEReserchStudentspage = () => {
   );
 };
 
-export default CSEReserchStudentspage;
+export default ArchReserchStudentspage;

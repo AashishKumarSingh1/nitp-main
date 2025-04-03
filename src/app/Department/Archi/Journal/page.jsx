@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-const CSEPatentsPage = () => {
+const ArchiJournalPage = () => {
   const [publications, setPublications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,12 +16,10 @@ const CSEPatentsPage = () => {
 
       // Group publications by year
       const groupedByYear = data.reduce((acc, publication) => {
-        if (!publication.patent_date) return acc; // Skip if patent_date is missing
+        if (!publication.publication_year) return acc; // Skip if year is missing or undefined
       
-        const year = new Date(publication.patent_date).getFullYear();
-      
-        if (isNaN(year)) return acc; // Skip if year is NaN (invalid date)
-      
+        const year = publication.publication_year;
+        
         if (!acc[year]) {
           acc[year] = [];
         }
@@ -47,8 +45,10 @@ const CSEPatentsPage = () => {
   return (
     <div className="min-h-screen bg-white bg-opacity-50">
       <div className="mx-auto px-4 py-8 max-w-6xl">
+        {" "}
+        {/* Adjust the width here */}
         <h1 className="text-2xl md:text-3xl font-bold mb-8 text-red-700 text-center">
-          Patents
+          Journal Publications
         </h1>
         {isLoading ? (
           <div className="flex justify-center items-center">
@@ -124,7 +124,22 @@ const CSEPatentsPage = () => {
                             Title
                           </th>
                           <th className="text-left px-6 py-4 font-semibold">
-                            Description
+                            Authors
+                          </th>
+                          <th className="text-left px-6 py-4 font-semibold">
+                            Journal Name
+                          </th>
+                          <th className="text-left px-6 py-4 font-semibold">
+                            Volume/Pages
+                          </th>
+                          <th className="text-left px-6 py-4 font-semibold">
+                            Quartile
+                          </th>
+                          <th className="text-left px-6 py-4 font-semibold">
+                            Student Involved
+                          </th>
+                          <th className="text-left px-6 py-4 font-semibold">
+                            DOI
                           </th>
                         </tr>
                       </thead>
@@ -140,7 +155,22 @@ const CSEPatentsPage = () => {
                               {pub.title}
                             </td>
                             <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.description}
+                              {pub.authors}
+                            </td>
+                            <td className="text-left px-6 py-4 text-gray-800">
+                              {pub.journal_name}
+                            </td>
+                            <td className="text-left px-6 py-4 text-gray-800">
+                              {pub.volume || pub.pages || "N/A"}
+                            </td>
+                            <td className="text-left px-6 py-4 text-gray-800">
+                              {pub.journal_quartile || "N/A"}
+                            </td>
+                            <td className="text-left px-6 py-4 text-gray-800">
+                              {pub.student_involved || "N/A"}
+                            </td>
+                            <td className="text-left px-6 py-4 text-gray-800">
+                              {pub.doi || "N/A"}
                             </td>
                           </tr>
                         ))}
@@ -156,4 +186,4 @@ const CSEPatentsPage = () => {
   );
 };
 
-export default CSEPatentsPage;
+export default ArchiJournalPage;

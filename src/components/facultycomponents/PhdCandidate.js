@@ -51,15 +51,15 @@ const PhdCandidate = ({ data }) => {
     : "N/A";
 
   return (
-    <div className="w-[400px] h-[250px] bg-gradient-to-br from-white to-slate-50 border-2 border-[rgb(153,27,27)] p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+    <div className="w-[350px] h-[300px] md:h-[275px] bg-gradient-to-br from-white to-slate-50 border-2 border-[rgb(153,27,27)] p-6 px-2 lg:px-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
       <div className="relative">
         {/* Name and Status Section */}
         <div className="flex items-center justify-between">
           <div>
-            <h5 className="text-[rgb(153,27,27)] font-bold text-xl">{name}</h5>
+            <h5 className="text-[rgb(153,27,27)] font-bold text-lg md:text-xl">{name}</h5>
           </div>
           <div
-            className={`px-4 py-1.5 ${
+            className={`px-2 md:px-4 py-1.5 ${
               current_status === "Completed" || current_status === "Awarded"
                 ? "bg-green-900"
                 : "bg-[rgb(153,27,27)]"
