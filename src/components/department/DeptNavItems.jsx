@@ -165,6 +165,11 @@ const getNavItems = (dept) => {
       url: `/Department/${dept}/Syllabus`,
     },
     {
+      name: "Time Table",
+      icon: <Calendar size={18} />,
+      url: `/Department/${dept}/TimeTable`,
+    },
+    {
       name: "Achievement",
       icon: <Award size={18} />,
       url: `/Department/${dept}/Achievement`,

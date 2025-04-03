@@ -31,10 +31,6 @@ export default function CSELayout({ children }) {
             </ErrorBoundary>
           </div>
         </div>
-
-        {/* Footer Section */}
-        <Imagefooter />
-        <Footer />
       </body>
     </html>
   );

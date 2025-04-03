@@ -47,7 +47,7 @@ export default function DepartmentSidebar({ dept }) {
 
       {/* Sidebar */}
       <div
-        className={`fixed md:relative left-0 w-64 bg-[#F8F0EE] border-r border-[#E8D0CB] transform ${
+        className={`fixed md:relative left-0 min-h-screen w-64 bg-[#F8F0EE] border-r border-[#E8D0CB] transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 transition-transform duration-300 ease-in-out z-40`}
         style={{
@@ -79,8 +79,8 @@ export default function DepartmentSidebar({ dept }) {
                       )}
                     </button>
                     <ul
-                      className={`ml-6 mt-1 space-y-1 overflow-hidden transition-all duration-200 ${
-                        openSubmenu === item.name ? "max-h-40" : "max-h-0"
+                      className={`ml-6 mt-1 space-y-2 overflow-hidden transition-all duration-200 ${
+                        openSubmenu === item.name ? "max-h-40 overflow-y-auto" : "max-h-0"
                       }`}
                     >
                       {item.dropdown.map((subitem) => (
