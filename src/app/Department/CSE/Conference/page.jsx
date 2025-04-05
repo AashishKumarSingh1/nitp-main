@@ -1,10 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const CSEConferencePage = () => {
   const [publications, setPublications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [openYears, setOpenYears] = useState({}); // dropdown open/close tracking
 
   const fetchPublications = async () => {
     setIsLoading(true);

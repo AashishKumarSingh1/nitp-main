@@ -1,33 +1,28 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const CSEJournalPage = () => {
-  const [publications, setPublications] = useState([]);
+  const [publications, setPublications] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [openYears, setOpenYears] = useState({}); // dropdown open/close tracking
 
   const fetchPublications = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://admin.nitp.ac.in/api/publications?type=all`
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/publications?type=cse`
       );
       const data = await response.json();
 
-      // Group publications by year
       const groupedByYear = data.reduce((acc, publication) => {
-        if (!publication.publication_year) return acc; // Skip if year is missing or undefined
-      
+        if (!publication.publication_year) return acc;
         const year = publication.publication_year;
-        
-        if (!acc[year]) {
-          acc[year] = [];
-        }
+        if (!acc[year]) acc[year] = [];
         acc[year].push(publication);
-      
         return acc;
       }, {});
-      
 
       setPublications(groupedByYear);
       setError(null);
@@ -42,65 +37,20 @@ const CSEJournalPage = () => {
     fetchPublications();
   }, []);
 
+  const toggleYear = (year) => {
+    setOpenYears((prev) => ({ ...prev, [year]: !prev[year] }));
+  };
+
   return (
     <div className="min-h-screen bg-white bg-opacity-50">
       <div className="mx-auto px-4 py-8 max-w-6xl">
-        {" "}
-        {/* Adjust the width here */}
         <h1 className="text-2xl md:text-3xl font-bold mb-8 text-red-700 text-center">
           Journal Publications
         </h1>
+
         {isLoading ? (
           <div className="flex justify-center items-center">
-            <svg
-              version="1.1"
-              id="L1"
-              height="150px"
-              width="150px"
-              viewBox="0 0 100 100"
-              enableBackground="new 0 0 100 100"
-            >
-              <circle
-                fill="none"
-                stroke="#f87171"
-                strokeWidth="6"
-                strokeMiterlimit="15"
-                strokeDasharray="14.2472,14.2472"
-                cx="50"
-                cy="50"
-                r="47"
-              >
-                <animateTransform
-                  attributeName="transform"
-                  attributeType="XML"
-                  type="rotate"
-                  dur="5s"
-                  from="0 50 50"
-                  to="360 50 50"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle
-                fill="none"
-                stroke="#f87171"
-                strokeWidth="1"
-                strokeMiterlimit="10"
-                strokeDasharray="10,10"
-                cx="50"
-                cy="50"
-                r="39"
-              >
-                <animateTransform
-                  attributeName="transform"
-                  attributeType="XML"
-                  type="rotate"
-                  dur="5s"
-                  from="0 50 50"
-                  to="-360 50 50"
-                  repeatCount="indefinite"
-                />
-              </circle>
-            </svg>
+            {/* Spinner here */}
           </div>
         ) : error ? (
           <div className="text-center text-red-500">
@@ -109,75 +59,78 @@ const CSEJournalPage = () => {
           </div>
         ) : (
           Object.keys(publications)
-            .sort((a, b) => b - a) // Sort years in descending order
+            .sort((a, b) => b - a)
             .map((year) => (
-              <div key={year} className="mb-8">
-                <h2 className="text-xl font-bold mb-4 text-red-700">
+              <div
+                key={year}
+                className="mb-6 border border-gray-300 rounded-lg shadow-md bg-white"
+              >
+                <button
+                  onClick={() => toggleYear(year)}
+                  className="w-full px-4 py-3 bg-red-100 text-left text-lg font-bold text-red-700 flex justify-between items-center hover:bg-red-200 transition"
+                >
                   Publications in {year}
-                </h2>
-                <div className="overflow-hidden rounded-lg shadow-md border border-gray-100">
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse bg-white">
-                      <thead>
-                        <tr className="bg-red-700 text-white">
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Title
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Authors
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Journal Name
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Volume/Pages
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Quartile
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Student Involved
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            DOI
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {publications[year].map((pub, index) => (
-                          <tr
-                            key={pub.id}
-                            className={`border-b border-gray-100 hover:bg-red-50 transition-colors ${
-                              index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                            }`}
-                          >
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.title}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.authors}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.journal_name}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.volume || pub.pages || "N/A"}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.journal_quartile || "N/A"}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.student_involved || "N/A"}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.doi || "N/A"}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                  {openYears[year] ? <ChevronUp /> : <ChevronDown />}
+                </button>
+
+                {openYears[year] && (
+                  <div className="overflow-y-auto max-h-100">
+                    <ul className="p-4 space-y-4">
+                      {publications[year].map((paper, index) => (
+                        <li
+                          key={index}
+                          className="p-4 border border-gray-200 bg-white rounded-md shadow-sm hover:shadow-md transition-transform duration-200"
+                        >
+                          <p className="text-gray-800">
+                            {paper.authors && (
+                              <span className="font-semibold">
+                                {paper.authors}
+                              </span>
+                            )}
+                            ,{" "}
+                            {paper.title && (
+                              <span className="font-semibold text-blue-700">
+                                &quot;{paper.title}&quot;
+                              </span>
+                            )}
+                            ,{" "}
+                            {paper.journal_name && (
+                              <span className="text-gray-700 text-lg font-semibold">
+                                {paper.journal_name}
+                              </span>
+                            )}{" "}
+                            {paper.journal_quartile && (
+                              <span className="text-gray-700">
+                                ({paper.journal_quartile})
+                              </span>
+                            )}{" "}
+                            {paper.volume && (
+                              <span className="text-gray-700">
+                                Volume: {paper.volume}{" "}
+                              </span>
+                            )}{" "}
+                            {paper.publication_year && (
+                              <span className="text-gray-700">
+                                Year: {paper.publication_year}
+                              </span>
+                            )}
+                          </p>
+                          {paper.doi_url && (
+                            <p className="text-blue-600 underline">
+                              <a
+                                href={paper.doi_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                DOI Link
+                              </a>
+                            </p>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
+                )}
               </div>
             ))
         )}

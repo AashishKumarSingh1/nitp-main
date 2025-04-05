@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import DepartmentCounter from "@/components/department/DeptCounter";
-import AcadProgram from "@/components/department/AcadProgram";
+import AcadProgram from "@/components/department/AcadProgramCard";
 import AboutDept from "@/components/department/AboutDept";
 import DeptPic from "@/components/department/DeptPic";
 import DeptNotice from "@/components/department/DeptNotice";
