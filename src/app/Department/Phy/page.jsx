@@ -71,7 +71,7 @@ const PhyPage = () => {
       {/* Department Picture and Notice */}
       <div className="flex flex-row w-[90%] h-[420px] mx-auto flex-1 shrink-0 mt-5">
         <DeptPic pictures={pictures} />
-        <DeptNotice dept="phy" />
+        <DeptNotice dept="Phy" />
       </div>
 
       {/* About the department */}
@@ -82,19 +82,6 @@ const PhyPage = () => {
           <DepartmentCounter counts={counts} />
         </div>
       </div>
-
-      {/* Academic Programmes */}
-      <div className="py-1 mt-2">
-        <h2 className="text-center w-[80%] mx-auto text-4xl text-red-700 mb-2">
-          Academic Programmes
-        </h2>
-        <div className="w-[80%] mx-auto">
-          <AcadProgram acadProgrammes={AcadProgrammes} />
-        </div>
-      </div>
-
-      {/* Vision And Mission */}
-      <div></div>
     </div>
   );
 };
