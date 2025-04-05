@@ -84,23 +84,13 @@ const getNavItems = (dept) => {
           icon: <BookOpen size={18} />,
         },
         {
-          name: "Vision",
-          url: `/Department/${dept}/Vision`,
-          icon: <FileText size={18} />,
-        },
-        {
-          name: "Mission",
+          name: "Mission & Vision",
           url: `/Department/${dept}/Mission`,
-          icon: <Building size={18} />,
+          icon: <FileText size={18} />,
         },
         {
           name: "PO & PEO",
           url: `/Department/${dept}/PO`,
-          icon: <BookOpen size={18} />,
-        },
-        {
-          name: "UG & PG",
-          url: `/Department/${dept}/UGPG`,
           icon: <BookOpen size={18} />,
         },
       ],
@@ -152,15 +142,10 @@ const getNavItems = (dept) => {
           url: `/Department/${dept}/Projects`,
           icon: <Building size={18} />,
         },
-        {
-          name: "Research Group",
-          url: `/Department/${dept}/ResearchGroup`,
-          icon: <Building size={18} />,
-        },
       ],
     },
     {
-      name: "Syallabus",
+      name: "Syllabus",
       icon: <GraduationCap size={18} />,
       url: `/Department/${dept}/Syllabus`,
     },
@@ -170,19 +155,14 @@ const getNavItems = (dept) => {
       url: `/Department/${dept}/TimeTable`,
     },
     {
-      name: "Achievement",
+      name: "Academic Programs",
       icon: <Award size={18} />,
-      url: `/Department/${dept}/Achievement`,
+      url: `/Department/${dept}/AcadProgram`,
     },
     {
       name: "Labs",
       icon: <Labs size={18} />,
       url: `/Department/${dept}/Lab`,
-    },
-    {
-      name: "Activities",
-      icon: <ActivityIcon size={18} />,
-      url: `/Department/${dept}/Activity`,
     },
   ];
 };

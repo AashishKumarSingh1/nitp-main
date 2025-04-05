@@ -1,35 +1,36 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const CSEProjectsPage = () => {
   const [publications, setPublications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [openYears, setOpenYears] = useState({}); // dropdown open/close tracking
 
   const fetchPublications = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://admin.nitp.ac.in/api/project?type=all`
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/project?type=cse`
       );
       const data = await response.json();
 
       // Group publications by year
       const groupedByYear = data.reduce((acc, publication) => {
-        if (!publication.end_date) return acc; // Skip if patent_date is missing
-      
+        if (!publication.end_date) return acc; // Skip if project_date is missing
+
         const year = new Date(publication.end_date).getFullYear();
-      
+
         if (isNaN(year)) return acc; // Skip if year is NaN (invalid date)
-      
+
         if (!acc[year]) {
           acc[year] = [];
         }
         acc[year].push(publication);
-      
+
         return acc;
       }, {});
-      
 
       setPublications(groupedByYear);
       setError(null);
@@ -43,6 +44,10 @@ const CSEProjectsPage = () => {
   useEffect(() => {
     fetchPublications();
   }, []);
+
+  const toggleYear = (year) => {
+    setOpenYears((prev) => ({ ...prev, [year]: !prev[year] }));
+  };
 
   return (
     <div className="min-h-screen bg-white bg-opacity-50">
@@ -113,61 +118,75 @@ const CSEProjectsPage = () => {
           Object.keys(publications)
             .sort((a, b) => b - a) // Sort years in descending order
             .map((year) => (
-              <div key={year} className="mb-8">
-                <h2 className="text-xl font-bold mb-4 text-red-700">
-                  Project Completed in {year}
-                </h2>
-                <div className="overflow-hidden rounded-lg shadow-md border border-gray-100">
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse bg-white">
-                      <thead>
-                        <tr className="bg-red-700 text-white">
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Title
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Funding Agency
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Financial Outlay
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Institute
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Funds Recieved
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {publications[year].map((pub, index) => (
-                          <tr
-                            key={pub.id}
-                            className={`border-b border-gray-100 hover:bg-red-50 transition-colors ${
-                              index % 2 === 0 ? "bg-white" : "bg-gray-50"
+              <div
+                key={year}
+                className="mb-6 border border-gray-300 rounded-lg shadow-md bg-white"
+              >
+                <button
+                  onClick={() => toggleYear(year)}
+                  className="w-full px-4 py-3 bg-red-100 text-left text-lg font-bold text-red-700 flex justify-between items-center hover:bg-red-200 transition"
+                >
+                  Publications in {year}
+                  {openYears[year] ? <ChevronUp /> : <ChevronDown />}
+                </button>
+
+                {openYears[year] && (
+                  <div className="overflow-y-auto max-h-100">
+                    <ul className="p-4 space-y-4">
+                      {publications[year].map((project, index) => (
+                        <li
+                          key={index}
+                          className="p-4 border border-gray-300 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform duration-300"
+                        >
+                          {/* Project Title */}
+                          <h3 className="text-lg font-semibold text-blue-800">
+                            {project.project_title}
+                          </h3>
+
+                          {/* Role */}
+                          {project.role && (
+                            <p className="text-gray-700">
+                              <strong>Role:</strong> {project.role}
+                            </p>
+                          )}
+
+                          {/* Funding Agency */}
+                          <p className="text-gray-800">
+                            <strong>Sponsor:</strong> {project.funding_agency}
+                          </p>
+
+                          {/* Duration */}
+                          <p className="text-gray-700">
+                            <strong>Duration:</strong> {project.start_date} -{" "}
+                            {project.end_date}
+                          </p>
+
+                          {/* Financial Outlay */}
+                          <p className="text-gray-800">
+                            <strong>Project Cost (INR):</strong> ₹
+                            {parseFloat(
+                              project.financial_outlay
+                            ).toLocaleString()}
+                          </p>
+
+                          {/* Status */}
+                          <p
+                            className={`text-lg font-semibold ${
+                              project.status === "Completed"
+                                ? "text-green-800"
+                                : "text-blue-600"
                             }`}
                           >
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.project_title}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.funding_agency}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.financial_outlay}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.pi_institute}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.funds_received}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                            <strong className="text-black font-normal">
+                              Status:
+                            </strong>{" "}
+                            {project.status}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
+                )}
               </div>
             ))
         )}

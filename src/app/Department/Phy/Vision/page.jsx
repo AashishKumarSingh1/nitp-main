@@ -1,6 +1,6 @@
 import React from "react";
 
-const ArchiVisionPage = () => {
+const CSEVisionPage = () => {
   return (
     <div>
       <div className="py-1 mt-2">
@@ -11,9 +11,10 @@ const ArchiVisionPage = () => {
           <p className="text-justify mt-2">
             <ul className="list-disc pl-5 space-y-2">
               <li className="ml-4">
-                To become a centre of excellence to inspire, innovate and
-                transform the knowledge to create a sustainable built
-                environment for improved quality of life on the earth.
+                The vision of the Department is to achieve excellence in
+                undergraduate and postgraduate education and research through a
+                synergic combination and thereby lead to development of new
+                knowledge.
               </li>
             </ul>
           </p>
@@ -23,4 +24,4 @@ const ArchiVisionPage = () => {
   );
 };
 
-export default ArchiVisionPage;
+export default CSEVisionPage;
