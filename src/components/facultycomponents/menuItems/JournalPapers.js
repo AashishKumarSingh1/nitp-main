@@ -41,10 +41,10 @@ const JournalPapers = ({ data }) => {
                     )}
                     ,{" "}
                     {paper.title && (
-  <span className="font-semibold text-blue-700">
-    &quot;{paper.title}&quot;
-  </span>
-)}
+                      <span className="font-semibold text-blue-700">
+                        &quot;{paper.title}&quot;
+                      </span>
+                    )}
 
                     ,{" "}
                     {paper.journal_name && (

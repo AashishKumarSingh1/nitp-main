@@ -1,37 +1,40 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const CSEPatentsPage = () => {
   const [publications, setPublications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [openYears, setOpenYears] = useState({}); // dropdown open/close tracking
 
   const fetchPublications = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://admin.nitp.ac.in/api/publications?type=all`
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/api/patent?type=cse`
       );
       const data = await response.json();
 
+      // console.log(data);
+
       // Group publications by year
       const groupedByYear = data.reduce((acc, publication) => {
-        if (!publication.patent_date) return acc; // Skip if patent_date is missing
-      
-        const year = new Date(publication.patent_date).getFullYear();
-      
+        if (!publication.publication_date) return acc; // Skip if patent_date is missing
+
+        const year = new Date(publication.publication_date).getFullYear();
         if (isNaN(year)) return acc; // Skip if year is NaN (invalid date)
-      
+
         if (!acc[year]) {
           acc[year] = [];
         }
         acc[year].push(publication);
-      
+
         return acc;
       }, {});
-      
 
       setPublications(groupedByYear);
+      // console.log(groupedByYear);
       setError(null);
     } catch (error) {
       setError("Failed to fetch publication data");
@@ -43,6 +46,10 @@ const CSEPatentsPage = () => {
   useEffect(() => {
     fetchPublications();
   }, []);
+
+  const toggleYear = (year) => {
+    setOpenYears((prev) => ({ ...prev, [year]: !prev[year] }));
+  };
 
   return (
     <div className="min-h-screen bg-white bg-opacity-50">
@@ -111,43 +118,72 @@ const CSEPatentsPage = () => {
           Object.keys(publications)
             .sort((a, b) => b - a) // Sort years in descending order
             .map((year) => (
-              <div key={year} className="mb-8">
-                <h2 className="text-xl font-bold mb-4 text-red-700">
+              <div
+                key={year}
+                className="mb-6 border border-gray-300 rounded-lg shadow-md bg-white"
+              >
+                <button
+                  onClick={() => toggleYear(year)}
+                  className="w-full px-4 py-3 bg-red-100 text-left text-lg font-bold text-red-700 flex justify-between items-center hover:bg-red-200 transition"
+                >
                   Publications in {year}
-                </h2>
-                <div className="overflow-hidden rounded-lg shadow-md border border-gray-100">
-                  <div className="overflow-x-auto">
-                    <table className="w-full border-collapse bg-white">
-                      <thead>
-                        <tr className="bg-red-700 text-white">
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Title
-                          </th>
-                          <th className="text-left px-6 py-4 font-semibold">
-                            Description
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {publications[year].map((pub, index) => (
-                          <tr
-                            key={pub.id}
-                            className={`border-b border-gray-100 hover:bg-red-50 transition-colors ${
-                              index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                            }`}
-                          >
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.title}
-                            </td>
-                            <td className="text-left px-6 py-4 text-gray-800">
-                              {pub.description}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                  {openYears[year] ? <ChevronUp /> : <ChevronDown />}
+                </button>
+
+                {openYears[year] && (
+                  <div className="overflow-y-auto max-h-100">
+                    <ul className="p-4 space-y-4">
+                      {publications[year].map((patent, index) => (
+                        <li
+                          key={index}
+                          className="p-4 border border-gray-300 bg-white rounded-lg shadow-md hover:shadow-lg transition-transform duration-300"
+                        >
+                          {/* patent Title */}
+                          <h3 className="text-lg font-semibold text-blue-800">
+                            {patent.title}
+                          </h3>
+
+                          {patent.inventors && (
+                            <p className="text-gray-600">
+                              Inventors:{" "}
+                              <span className="text-black">
+                                {patent.inventors}
+                              </span>
+                            </p>
+                          )}
+
+                          {patent.registration_date && (
+                            <p className="text-gray-600">
+                              Registration Date:
+                              {patent.registration_date}
+                            </p>
+                          )}
+
+                          {patent.publication_date && (
+                            <p className="text-gray-600">
+                              Publication Date: {patent.publication_date}
+                            </p>
+                          )}
+
+                          {patent.grant_no && (
+                            <p className="text-gray-600">
+                              Patent No:{" "}
+                              <span className="text-black">
+                                {patent.grant_no}
+                              </span>
+                            </p>
+                          )}
+
+                          {patent.grant_date && (
+                            <p className="text-gray-600">
+                              Grant Date: {patent.grant_date}
+                            </p>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
+                )}
               </div>
             ))
         )}

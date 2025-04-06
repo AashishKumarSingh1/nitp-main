@@ -1,60 +1,88 @@
+"use client";
+import React from "react";
 import DepartmentCounter from "@/components/department/DeptCounter";
-import DeptNavbar from "@/components/department/DeptNavbar";
+import AcadProgram from "@/components/department/AcadProgramCard";
+import AboutDept from "@/components/department/AboutDept";
+import DeptPic from "@/components/department/DeptPic";
+import DeptNotice from "@/components/department/DeptNotice";
+import {
+  Users,
+  BookOpen,
+  FileText,
+  Award,
+  Briefcase,
+  BarChart2,
+} from "lucide-react";
 
 const about = `The Department of Mechanical Engineering was established in 1952 with B. Tech program during the era of Bihar College of Engineering (BCE) which is well-known since 1924 as the sixth oldest Engineering College in India. In 1978, M. Tech Program was started with specializations in "Thermal Turbo Machinery" and "Refrigeration, Air Conditioning and Heat Transfer". The Bihar College of Engineering was converted to National Institute of Technology Patna in 2004.
-The Department has an excellent industrial interaction and contributes to the industry by offering consultancy services and sponsored research projects. Continuously growing numbers of patents and publications in various top multidisciplinary journals is indication of the thriving research environment in the department`;
+// The Department has an excellent industrial interaction and contributes to the industry by offering consultancy services and sponsored research projects. Continuously growing numbers of patents and publications in various top multidisciplinary journals is indication of the thriving research environment in the department`;
+
+const pictures = ["", "", ""];
 
 const counts = [
+  { name: "Undergraduate Students", icon: <Users size={40} />, count: "456+" },
+  { name: "Postgraduate Students", icon: <Users size={40} />, count: "123+" },
+  { name: "Ph.D. Students", icon: <Users size={40} />, count: "49+" },
+  { name: "Faculty", icon: <BookOpen size={40} />, count: "25+" },
+  { name: "Journal", icon: <FileText size={40} />, count: "25+" },
+  { name: "Conferences", icon: <Award size={40} />, count: "78+" },
+  { name: "Projects", icon: <Briefcase size={40} />, count: "49+" },
+  { name: "Book", icon: <BookOpen size={40} />, count: "123+" },
+  { name: "Patents", icon: <BarChart2 size={40} />, count: "123+" },
+];
+
+const AcadProgrammes = [
   {
-    name: "Students",
-    icon: "/students_icon.png",
-    count: 325,
+    name: "Under Graduate",
+    degree: "B.Tech",
+    duration: `4`,
+    specialization: ["CSE"],
+    timeTableLink: "",
+    syllabusLink: "",
   },
   {
-    name: "Faculty",
-    icon: "/faculty_icon.png",
-    count: 20,
+    name: "Dual Degree",
+    degree: "Integrated B.Tech and M.Tech",
+    duration: `5`,
+    specialization: ["Cyber Security", "Data Science"],
+    timeTableLink: "",
+    syllabusLink: "",
   },
   {
-    name: "Journal",
-    icon: "/journal_icon.png",
-    count: 12,
+    name: "Post Graduate",
+    degree: "M.Tech",
+    duration: `2`,
+    specialization: ["CSE"],
+    timeTableLink: "",
+    syllabusLink: "",
   },
   {
-    name: "Conferences",
-    icon: "/conference_icon.png",
-    count: 59,
-  },
-  {
-    name: "Projects",
-    icon: "/projects_icon.png",
-    count: 29,
-  },
-  {
-    name: "Research",
-    icon: "/research_icon.png",
-    count: 73,
+    name: "Ph.D.",
+    degree: "Post Doctrate",
+    duration: `5+`,
+    specialization: ["CSE"],
+    timeTableLink: "",
+    syllabusLink: "",
   },
 ];
 
 const MEPage = () => {
   return (
-    <div className="bg-white">
-      <DeptNavbar dept="ME" />
-
-      <h2 className="text-center text-5xl mt-2 text-red-700 uppercase">
-        Mechanical Engineering
-      </h2>
-
-      <div className="mt-2 w-[80%] mx-auto py-5 text-justify text-black">
-        {about.split("\n").map((line, index) => (
-          <p key={index} className="mb-2">
-            {line}
-          </p>
-        ))}
+    <div className="">
+      {/* Department Picture and Notice */}
+      <div className="flex flex-row w-[90%] h-[420px] mx-auto flex-1 shrink-0 mt-5">
+        <DeptPic pictures={pictures} />
+        <DeptNotice dept="ME" />
       </div>
 
-      <DepartmentCounter counts={counts} />
+      {/* About the department */}
+      <div className="py-1 mt-2">
+        <div className="flex flex-col lg:flex-row w-full px-5 xs:px-0 md:w-[90%] lg:w-full mx-auto">
+          <AboutDept about={about} />
+
+          <DepartmentCounter counts={counts} />
+        </div>
+      </div>
     </div>
   );
 };

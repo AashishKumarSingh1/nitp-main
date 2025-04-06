@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import DepartmentCounter from "@/components/department/DeptCounter";
-import AcadProgram from "@/components/department/AcadProgram";
+import AcadProgram from "@/components/department/AcadProgramCard";
 import AboutDept from "@/components/department/AboutDept";
 import DeptPic from "@/components/department/DeptPic";
 import DeptNotice from "@/components/department/DeptNotice";
@@ -75,19 +75,6 @@ const CSEPage = () => {
           <DepartmentCounter counts={counts} />
         </div>
       </div>
-
-      {/* Academic Programmes */}
-      <div className="py-1 mt-2">
-        <h2 className="text-center w-[80%] mx-auto text-4xl text-red-700 mb-2">
-          Academic Programmes
-        </h2>
-        <div className="w-[80%] mx-auto">
-          <AcadProgram acadProgrammes={AcadProgrammes} />
-        </div>
-      </div>
-
-      {/* Vision And Mission */}
-      <div></div>
     </div>
   );
 };
