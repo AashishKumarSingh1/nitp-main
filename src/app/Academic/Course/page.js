@@ -12,31 +12,6 @@ export default function Page() {
                     <div className=" items-center justify-center mx-auto">
                         <h1 className="text-4xl font-bold text-center">All Courses</h1>
                     </div>
-                    <div className="flex flex-wrap justify-center gap-2">
-                        <button onClick={() => {
-                            router.push("/Academic/Course")
-                        }} className={`border border-black rounded text-white bg-red-900 px-2`}>ALL Courses</button>
-
-                        <button onClick={() => {
-                            router.push("/Academic/Course/Ug")
-                        }} className={`border border-black rounded  text-red-900 px-2`}>UG Courses</button>
-
-                        <button onClick={() => {
-                            router.push("/Academic/Course/Pg")
-                        }} className={`border border-black rounded text-red-900 px-2`}>PG (M.tech/MURP) Course</button>
-
-                        <button onClick={() => {
-                            router.push("/Academic/Course/MTech")
-                        }} className={`border border-black rounded text-red-900 px-2`}>M.tech/MURP-PHD (DD)</button>
-
-                        <button onClick={() => {
-                            router.push("/Academic/Course/MSc")
-                        }} className={`border border-black rounded text-red-900 px-2`}>Integrated M.sc</button>
-
-                        <button onClick={() => {
-                            router.push("/Academic/Course/MCA")
-                        }} className={`border border-black rounded text-red-900 px-2`}>MCA program</button>
-                    </div>
                 </div>
             </div>
             <div className="max-sm:mx-6 max-md:mx-8 mx-20 border p-4 rounded-md shadow-lg shadow-slate-400 backdrop-blur-md">
