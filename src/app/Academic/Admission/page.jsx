@@ -1,17 +1,16 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserGraduate, faGlobe, faBoxArchive, faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
+import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserGraduate, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import Admissions from "./Admission";
-import './style.css';
 
 export default function InstitutePage() {
-  const [activeSection, setActiveSection] = useState('SII');
+  const [activeSection, setActiveSection] = useState("SII");
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const tab = urlParams.get('tab') || 'SII';
+    const tab = urlParams.get("tab") || "SII";
     setActiveSection(tab);
   }, []);
 
@@ -22,170 +21,202 @@ export default function InstitutePage() {
 
   const updateURL = (section) => {
     const url = new URL(window.location.href);
-    url.searchParams.set('tab', section);
-    window.history.pushState({}, '', url.toString());
+    url.searchParams.set("tab", section);
+    window.history.pushState({}, "", url.toString());
   };
 
   return (
-    <div className="flex flex-col bg-white bg-opacity-70 maincont1">
-      <header className="bg-primary text-primary-foreground px-4 lg:px-5 h-14 flex items-center justify-between">
-        <div className="bottonconatiner">
-          <div className="containeripi">
+    <div className="bg-gradient-to-b from-white to-red-50 min-h-screen">
+      {/* Header Tabs */}
+      <header className="bg-red-600 text-white shadow-md">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex justify-center gap-6">
+          {[
+            { label: "SII", icon: faGlobe },
+            { label: "JoSAA", icon: faUserGraduate },
+          ].map(({ label, icon }) => (
             <div
-              className={`cardacad cardacad1 ${activeSection === 'SII' ? 'active' : ''}`}
-              onClick={() => handleNavigation('SII')}
-              style={{ backgroundColor: activeSection === 'SII' ? 'white' : 'initial' }}
+              key={label}
+              onClick={() => handleNavigation(label)}
+              className={`flex flex-col items-center justify-center px-6 py-3 rounded-xl cursor-pointer transition-all duration-300 ${
+                activeSection === label
+                  ? "bg-white text-red-600 shadow-md"
+                  : "bg-red-500 hover:bg-red-400"
+              }`}
             >
-              <FontAwesomeIcon icon={faGlobe} size="2x" color='#d62a39' />
-              <p className="heading">SII</p>
+              <FontAwesomeIcon icon={icon} size="lg" />
+              <span className="mt-1 text-sm font-semibold">
+                {label === "JoSAA" ? "Admission" : label}
+              </span>
             </div>
-            <div
-              className={`cardacad cardacad1 ${activeSection === 'JoSAA' ? 'active' : ''}`}
-              onClick={() => handleNavigation('JoSAA')}
-              style={{ backgroundColor: activeSection === 'JoSAA' ? 'white' : 'initial' }}
-            >
-              <FontAwesomeIcon icon={faUserGraduate} size="2x" color='#d62a39' />
-              <p className="heading">Admission</p>
-            </div>
-          </div>
+          ))}
         </div>
       </header>
 
-      <div className='detailcontainer'>
-        <div className="flex-1 flex justify-center items-center">
-          {activeSection === 'SII' && (
-            <section className="text-black">
-              <div className="admission-info">
-                <h1 className="section-title-heading text-red-800">
-                  Admission in UG/PG/PhD programme through Study In India (SII)
-                </h1>
+      {/* Content Section */}
+      <main className="max-w-6xl mx-auto px-4 py-10">
+        {activeSection === "SII" && (
+          <section>
+            <h1 className="text-3xl font-bold text-red-700 text-center mb-10">
+              Admission in UG/PG/PhD Programme via Study In India (SII)
+            </h1>
 
-                <div className="requirements-container">
-                  <div className="requirement">
-                    <h3>Minimum Qualifications</h3>
-                    <ul>
-                      <li className='pt-3'>
-                        <strong>B.Tech/DD(B.Tech+M.Tech)/B.Arch Programme:</strong> PCM with
-                        65% or Diploma in Relevant branch with 65% Valid JEE(Main) score or
-                        Institute level Written Test/Interview
-                      </li>
-                      <li className='pt-2'>
-                        <strong>M.Tech/M.Arch/MURP Programme:</strong> UG in any branch
-                        with 65% along with Valid GATE Score in relevant GATE paper or
-                        Institute level Written Test/Interview
-                      </li>
-                      <li className='pt-2'>
-                        <strong>PhD:</strong> PG in any branch with 65% along with Valid
-                        GATE Score in relevant GATE paper or Institute level Written
-                        Test/Interview
-                      </li>
-                    </ul>
-                  </div>
+            <div className="grid md:grid-cols-2 gap-10">
+              {/* Qualifications */}
+              <div className="bg-white p-6 rounded-xl shadow-sm border">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                  Minimum Qualifications
+                </h2>
+                <ul className="space-y-4 text-sm text-gray-700 list-disc list-inside">
+                  <li>
+                    <strong>B.Tech/DD(B.Tech+M.Tech)/B.Arch Programme:</strong>{" "}
+                    PCM with 65% or Diploma in relevant branch with 65%. Valid
+                    JEE(Main) score or Institute level Written Test/Interview.
+                  </li>
+                  <li>
+                    <strong>M.Tech/M.Arch/MURP Programme:</strong> UG in any
+                    branch with 65%. Valid GATE Score in relevant paper or
+                    Institute level Written Test/Interview.
+                  </li>
+                  <li>
+                    <strong>PhD:</strong> PG in any branch with 65%. Valid GATE
+                    Score or Institute level Written Test/Interview.
+                  </li>
+                </ul>
+              </div>
 
-                  <div className="requirement">
-                    <h3 className="section-title text-red-950">Admission Schedule</h3>
-                    <ul>
-                      <li>Last date of registration: 25 June 2024</li>
-                      <li>Last date of Scrutiny of applications (select/Reject): 27 June 2024, 5 PM</li>
-                      <li>Missing documents to be uploaded: 28 June 2024, 5 PM</li>
-                      <li>Last date of confirmation for sending admission letter: 28 June 2024</li>
-                    </ul>
-                  </div>
-                </div>
+              {/* Schedule */}
+              <div className="bg-white p-6 rounded-xl shadow-sm border">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                  Admission Schedule
+                </h2>
+                <ul className="space-y-2 text-sm text-gray-700 list-disc list-inside">
+                  <li>Last date of registration: 25 June 2024</li>
+                  <li>
+                    Scrutiny of applications (Select/Reject): 27 June 2024, 5 PM
+                  </li>
+                  <li>Upload missing documents: 28 June 2024, 5 PM</li>
+                  <li>Admission letter confirmation: 28 June 2024</li>
+                </ul>
+              </div>
+            </div>
 
-                <h2 className="section-title pt-9 text-red-950">Course Fees</h2>
+            {/* Fees Table */}
+            <div className="mt-12">
+              <h2 className="text-2xl font-semibold text-red-800 mb-4">
+                Course Fees
+              </h2>
 
-                <table className="course-fees">
-                  <thead>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm bg-white rounded-md border-1  border-black">
+                  <thead className="bg-gray-100 text-left text-gray-700">
                     <tr>
-                      <th>Course</th>
-                      <th>Annual Tuition Fee</th>
+                      <th className="p-4 border border-black">Course</th>
+                      <th className="p-4 border border-black">
+                        Annual Tuition Fee
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>B.Tech / BArch / MTech / March / MURP / PhD</td>
-                      <td>
-                        <div className="fee-container">
-                          <div>SAARC Country: $5000 per annum</div>
-                          <div>Non-SAARC Country: $8000 per annum</div>
-                        </div>
+                      <td className="p-4 border border-black">
+                        B.Tech / BArch / MTech / MArch / MURP / PhD
+                      </td>
+                      <td className="p-4 border border-black space-y-1">
+                        <div>SAARC: $5000/year</div>
+                        <div>Non-SAARC: $8000/year</div>
                       </td>
                     </tr>
                     <tr>
-                      <td>Total Annual Tuition Fee*</td>
-                      <td>
-                        <div className="fee-container">
-                          <div>SAARC Country: $6779 per annum</div>
-                          <div>Non-SAARC Country: $9779 per annum</div>
-                        </div>
+                      <td className="p-4 border border-black font-semibold">
+                        Total Annual Fee*
+                      </td>
+                      <td className="p-4 border border-black space-y-1">
+                        <div>SAARC: $6779/year</div>
+                        <div>Non-SAARC: $9779/year</div>
                       </td>
                     </tr>
                     <tr>
-                      <td>Miscellaneous Cost (if any)</td>
-                      <td>$100 for all</td>
+                      <td className="p-4 border border-black">
+                        Miscellaneous Cost
+                      </td>
+                      <td className="p-4 border border-black">$100</td>
                     </tr>
                   </tbody>
                 </table>
-
-                <div className='flex mt-4'>
-                  <h1 className='mt-4 ml-16 font-bold'>International Student Registration -</h1>
-                  <a
-                    href="https://www.studyinindia.gov.in/admission/registrations"
-                    className="text-red-700 font-bold py-2 px-4 rounded-lg shadow-md ml-5 mt-2 mb-3"
-                  >
-                    Click Here
-                  </a>
-                </div>
               </div>
-            </section>
-          )}
+            </div>
 
-          {activeSection === 'JoSAA' && (
-            <section className="w-full max-w-7xl mx-auto px-4 py-8">
-              <div className="bg-white rounded-lg shadow-md">
-                {Admissions.map((admission, index) => (
-                  <div key={index} className="p-6 border-b border-gray-100 last:border-b-0">
-                    {admission.heading && (
-                      <h1 className="text-2xl font-bold text-black mb-4">
-                        {admission.heading}
-                      </h1>
-                    )}
-                    {admission.title && (
-                      <h2 className="text-lg font-semibold text-red-950 mb-6">
-                        {admission.title}
-                      </h2>
-                    )}
-                    <div className="space-y-6">
-                      {admission.data.map((item, idx) => {
-                        const [title, content] = item.para.split(' : ');
-                        return (
-                          <div key={idx} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-4">
-                            <strong className="text-red-800 min-w-[200px] md:text-right">{title}:</strong>
-                            <div className="flex-1 flex items-start gap-4">
-                              <p className="text-gray-700">{content}</p>
-                              {item.link && (
-                                <a
-                                  href={item.link}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-2 bg-red-900 text-white px-4 py-1 rounded-md hover:bg-red-800 transition-colors text-sm font-medium whitespace-nowrap"
-                                >
-                                  View Details
-                                </a>
-                              )}
-                            </div>
-                          </div>
-                        );
-                      })}
+            {/* Registration Button */}
+            <div className="mt-8 flex items-center gap-4">
+              <span className="font-medium text-gray-800">
+                International Student Registration:
+              </span>
+              <a
+                href="https://www.studyinindia.gov.in/admission/registrations"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition"
+              >
+                Register Now
+              </a>
+            </div>
+          </section>
+        )}
+
+        {activeSection === "JoSAA" && (
+          <section>
+            <h1 className="text-3xl font-bold text-red-700 text-center mb-10">
+              JoSAA Admission Details
+            </h1>
+            <div className="grid gap-8">
+              {Admissions.map((admission, index) => (
+                <div
+                  key={index}
+                  className="bg-white border border-gray-200 shadow-sm rounded-xl p-6"
+                >
+                  {admission.heading && (
+                    <h2 className="text-xl font-bold text-gray-800 mb-2">
+                      {admission.heading}
+                    </h2>
+                  )}
+                  {admission.title && (
+                    <div className="bg-red-100 text-red-800 px-4 py-2 rounded-md mb-4 text-sm font-medium border-l-4 border-red-600">
+                      {admission.title}
                     </div>
+                  )}
+                  <div className="space-y-4 text-sm text-gray-700">
+                    {admission.data.map((item, idx) => {
+                      const [title, content] = item.para.split(" : ");
+                      return (
+                        <div
+                          key={idx}
+                          className="flex flex-col md:flex-row justify-between items-start gap-2 border-b pb-4 last:border-none"
+                        >
+                          <div className="flex flex-col md:flex-row md:gap-6">
+                            <div className="font-semibold text-gray-600 min-w-[160px]">
+                              {title}:
+                            </div>
+                            <p>{content}</p>
+                          </div>
+                          {item.link && (
+                            <a
+                              href={item.link}
+                              target="_blank"
+                              className="text-white bg-red-600 hover:bg-red-700 px-3 py-1.5 rounded-md text-xs font-medium"
+                            >
+                              View Details
+                            </a>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-      </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </main>
     </div>
   );
 }

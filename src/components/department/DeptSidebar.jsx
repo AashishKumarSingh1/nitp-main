@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import getNavItems from "./DeptNavItems";
@@ -8,16 +8,8 @@ import getNavItems from "./DeptNavItems";
 export default function DepartmentSidebar({ dept }) {
   const [openSubmenu, setOpenSubmenu] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [topOffset, setTopOffset] = useState(0);
   const menuButtonRef = useRef(null);
   const navItems = getNavItems(dept);
-
-  useEffect(() => {
-    if (menuButtonRef.current) {
-      const rect = menuButtonRef.current.getBoundingClientRect();
-      setTopOffset(rect.bottom -50); // Position sidebar just below the button
-    }
-  }, [isOpen]);
 
   const toggleSubmenu = (title) => {
     setOpenSubmenu(openSubmenu === title ? null : title);
@@ -35,8 +27,8 @@ export default function DepartmentSidebar({ dept }) {
 
   return (
     <>
-      {/* Sidebar Toggle Button for Mobile */}
-      <div className="fixed left-4 z-50 md:hidden" ref={menuButtonRef}>
+      {/* Toggle button on mobile */}
+      <div className="fixed top-4 left-4 z-50 md:hidden" ref={menuButtonRef}>
         <button
           className="bg-red-700 text-white p-3 rounded-full shadow-lg"
           onClick={toggleSidebar}
@@ -47,18 +39,14 @@ export default function DepartmentSidebar({ dept }) {
 
       {/* Sidebar */}
       <div
-        className={`fixed md:relative left-0 min-h-screen w-64 bg-[#F8F0EE] border-r border-[#E8D0CB] transform ${
+        className={`fixed top-0 left-0 w-64 h-screen bg-[#F8F0EE] border-r border-[#E8D0CB] z-40 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 transition-transform duration-300 ease-in-out z-40`}
-        style={{
-          top: `${isOpen ? topOffset : 0}px`,
-          height: "calc(100% - " + topOffset + "px)",
-        }}
+        } md:relative md:translate-x-0 md:h-auto md:block`}
       >
         <div className="p-4 bg-red-700 text-white">
           <h3 className="font-bold text-lg">Department Menu</h3>
         </div>
-        <nav className="p-2">
+        <nav className="p-2 overflow-y-auto h-[calc(100vh-64px)] md:h-auto">
           <ul className="space-y-1">
             {navItems.map((item) => (
               <li key={item.name}>
@@ -80,7 +68,9 @@ export default function DepartmentSidebar({ dept }) {
                     </button>
                     <ul
                       className={`ml-6 mt-1 space-y-2 overflow-hidden transition-all duration-200 ${
-                        openSubmenu === item.name ? "max-h-40 overflow-y-auto" : "max-h-0"
+                        openSubmenu === item.name
+                          ? "max-h-40 overflow-y-auto"
+                          : "max-h-0"
                       }`}
                     >
                       {item.dropdown.map((subitem) => (
@@ -112,12 +102,12 @@ export default function DepartmentSidebar({ dept }) {
         </nav>
       </div>
 
-      {/* Overlay for Mobile */}
+      {/* Overlay for mobile */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black opacity-40 z-30 md:hidden"
           onClick={toggleSidebar}
-        ></div>
+        />
       )}
     </>
   );
