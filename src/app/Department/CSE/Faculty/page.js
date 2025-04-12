@@ -10,7 +10,7 @@ const CSEFacultyPage = () => {
   const hasFaculty = true;
 
   return (
-    <div className="flex flex-col px-3 py-10 max-sm:p-4 text-black">
+    <div className="flex flex-col px-3 py-10 max-sm:p-2 text-black">
       {/* <div className="flex flex-col mb-4">
         <div className="mt-2 w-full justify-center flex">
           <p className="text-gray-500 text-sm lg:text-xl font-semibold">

@@ -67,7 +67,7 @@ const FacultyList = ({ url, branch }) => {
 
   return (
     <div className="flex flex-col p-2">
-      <div className="flex flex-wrap justify-center gap-4 p-4">
+      <div className="flex flex-wrap justify-center gap-4 py-2">
         {/* Render faculty data based on the specified order */}
         {facultyData
           .filter((faculty) =>
