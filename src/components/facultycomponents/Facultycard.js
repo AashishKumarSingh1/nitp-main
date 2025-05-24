@@ -26,6 +26,10 @@ function FacultyCard({
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
+  // check if phone number is number
+
+
+
   // const qualification = "Ph.D.(CSE),M.Tech.(CSE),B.E.(CSE)";
   // if (qualification == null) qualification = "";
   if (researchInterests == null) researchInterests = "";
@@ -37,10 +41,10 @@ function FacultyCard({
   interestsArray.sort();
 
   return (
-    <div className="w-[575px] rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow bg-white">
+    <div className="w-[575px] md:h-[300px] rounded-lg overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow bg-white">
       <div className="flex flex-col md:flex-row">
         {/* Left Panel */}
-        <div className="md:w-1/2 bg-[#F8F0EE] p-4 flex flex-col items-center justify-center">
+        <div className="md:w-1/2 h-[300px] bg-[#F8F0EE] p-4 flex flex-col items-center justify-center">
           <img
             src={image || "/placeholder.svg"}
             alt={name}
@@ -51,7 +55,7 @@ function FacultyCard({
         </div>
 
         {/* Right Panel */}
-        <div className="md:w-2/3 p-6">
+        <div className="md:w-2/3 w-full h-full md:h-[300px] p-6">
           {/* Contact Information */}
           <div className="mb-4">
             <h4 className="font-semibold text-[#5D1A14] mb-2">Contact Information</h4>
@@ -62,7 +66,11 @@ function FacultyCard({
               </p>
               <p className="flex items-center gap-2">
                 <Phone size={16} className="text-[#8B3A32]" />
-                <span>{phone}</span>
+                {phone && !isNaN(phone) ? (
+                  <span>{phone}</span>
+                ) : (
+                  <></>)
+                }
               </p>
               <p className="flex items-center gap-2">
                 <Globe size={16} className="text-[#8B3A32]" />
@@ -79,7 +87,7 @@ function FacultyCard({
           </div>
 
           {/* Specialization */}
-          <div className="mb-4">
+          <div className="mb-4 max-h-30 min-h-30 overflow-y-auto">
             <h4 className="font-semibold text-[#5D1A14] mb-2">Specialization</h4>
             <div className="flex flex-wrap gap-2">
               <div className="flex flex-wrap gap-2">
