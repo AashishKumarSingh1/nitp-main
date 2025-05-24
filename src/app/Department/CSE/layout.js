@@ -22,7 +22,7 @@ export default function CSELayout({ children }) {
           <DeptSidebar dept="CSE" />
 
           {/* Main Content */}
-          <div className="flex-1 overflow-auto p-4">
+          <div className="md:w-[85%] overflow-auto p-2">
             <h2 className="text-center px-2 text-4xl lg:text-5xl mt-2 text-red-700 uppercase">
               Computer Science And Engineering
             </h2>
